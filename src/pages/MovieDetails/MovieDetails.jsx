@@ -1,6 +1,11 @@
+import { Link } from "react-router-dom";
+
 function MovieDetails() {
   return (
-    <div><h1>Component MovieDetails</h1></div>
+    <div>
+      <Link>Go back</Link>
+      <h1>Component MovieDetails</h1>
+    </div>
   );
 };
 
