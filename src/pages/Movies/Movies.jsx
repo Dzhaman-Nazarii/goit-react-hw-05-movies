@@ -1,29 +1,41 @@
-import { searchMovies } from 'components/services/Service';
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { searchMovies, fetchDetails } from 'components/services/Service';
+import { useEffect, useState } from 'react';
+import { Link, useLocation, useParams } from 'react-router-dom';
 
 function Movies() {
   const [movieName, setMovieName] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const location = useLocation();
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     if (movieName.trim() === '') {
       alert('Введіть назву для пошуку');
       return;
     }
-    try {
-      const results = await searchMovies(movieName);
-      setSearchResults(results);
-    } catch (error) {
-      console.error(error);
-    }
     setMovieName('');
   };
 
-  const handleChange = ({target}) => {
+  const handleChange = ({ target }) => {
     setMovieName(target.value);
   };
+
+  useEffect(() => {
+    const fetchMovies = async () => {
+      if (movieName.trim() === '') {
+        setSearchResults([]);
+        return;
+      }
+      try {
+        const results = await searchMovies(movieName);
+        setSearchResults(results);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchMovies();
+  }, [movieName]);
 
   return (
     <>
@@ -41,15 +53,17 @@ function Movies() {
           <span>Search</span>
         </button>
       </form>
-        
+
       {searchResults.map((movie) => (
         <ul key={movie.id}>
           <li>
-            <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+            <Link to={`/movies/${movie.id}`} state={location}>
+              {movie.title}
+            </Link>
           </li>
         </ul>
       ))}
-      </>
+    </>
   );
 }
 

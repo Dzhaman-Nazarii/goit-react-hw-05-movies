@@ -35,23 +35,13 @@ export const searchMovies = async (searchQuery) => {
   }
 };
 
-export const fetchMovieDetails = async (movieId) => {
+export const fetchDetails = async id => {
   try {
-    const options = {
-      method: 'GET',
-      url: `https://api.themoviedb.org/3/movie/${movieId}`,
-      params: {
-        language: 'en-US',
-      },
-      headers: {
-        accept: 'application/json',
-        Authorization: 'Bearer 8ce6e3559b76c5181cc147c61e659efd',
-      },
-    };
-
-    const response = await axios.request(options);
-    console.log(response.data);
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US`
+    );
+    return response.data;
   } catch (error) {
-    console.error(error);
+    console.log(error);
   }
 };
