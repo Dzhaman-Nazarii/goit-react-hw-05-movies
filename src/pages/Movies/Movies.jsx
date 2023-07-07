@@ -1,6 +1,6 @@
-import { searchMovies, fetchDetails } from 'components/services/Service';
+import { searchMovies} from 'components/services/Service';
 import { useEffect, useState } from 'react';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation} from 'react-router-dom';
 
 function Movies() {
   const [movieName, setMovieName] = useState('');
