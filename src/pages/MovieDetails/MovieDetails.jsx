@@ -1,4 +1,4 @@
-import { Link, Outlet, useParams} from "react-router-dom";
+import { Link, Outlet, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { fetchDetails } from "../../components/services/Service";
 import Reviews from "../../components/Reviews/Reviews";
