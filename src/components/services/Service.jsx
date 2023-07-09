@@ -17,30 +17,42 @@ export const fetchTrending = async () => {
 export const searchMovies = async (searchQuery) => {
   try {
     const response = await axios.get(
-      'https://api.themoviedb.org/3/search/movie',
-      {
-        params: {
-          include_adult: 'false',
-          language: 'en-US',
-          page: '1',
-          query: searchQuery,
-          api_key: `${API_KEY}`,
-        },
-        headers: { accept: 'application/json' },
-      }
+      `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${searchQuery}&language=en-US`
     );
     return response.data.results;
   } catch (error) {
-    console.error(error);
+    console.log(error);
   }
 };
 
 export const fetchDetails = async id => {
   try {
     const response = await axios.get(
-      `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US`
+      `${BASE_URL}/movie/${id}?api_key=${API_KEY}&language=en-US`
     );
     return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchCast = async id => {
+  try {
+    const response = await axios.get(
+      `${BASE_URL}/movie/${id}/credits?api_key=${API_KEY}&language=en-US`
+    );
+    return response.data.cast;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchReviews = async id => {
+  try {
+    const response = await axios.get(
+      `${BASE_URL}/movie/${id}/reviews?api_key=${API_KEY}&language=en-US`
+    );
+    return response.data.results;
   } catch (error) {
     console.log(error);
   }
