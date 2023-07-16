@@ -1,11 +1,13 @@
-import { Link, Outlet, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import { fetchDetails } from "../../components/services/Service";
 import Reviews from "../../components/Reviews/Reviews";
 import Cast from "../../components/Cast/Cast";
 
-function MovieDetails() {
+export default function MovieDetails() {
   const { movieId } = useParams();
+  const location = useLocation();
+  const backLinkLocationRef = useRef(location.state?.from ?? '/movies');
   const [movieDetails, setMovieDetails] = useState(null);
   const [showCast, setShowCast] = useState(false);
   const [showReviews, setShowReviews] = useState(false);
@@ -43,7 +45,7 @@ function MovieDetails() {
   return (
     <>
       <div>
-        <Link to="/movies">Go back</Link>
+        <Link to={backLinkLocationRef.current}>Go back</Link>
         <h1>{title} ({release_date.substring(0, 4)})</h1>
         <p>Genres: {genres.map((genre) => genre.name).join(", ")}</p>
         <img src={`https://image.tmdb.org/t/p/w200/${poster_path}`} alt={title} />
@@ -54,12 +56,12 @@ function MovieDetails() {
         <h2>Additional information</h2>
         <ul>
           <li>
-            <Link to={`/movies/${movieId}/cast`} onClick={handleCastClick}>
+            <Link to={`${location.pathname}/cast`} onClick={handleCastClick}>
               Cast
             </Link>
           </li>
           <li>
-            <Link to={`/movies/${movieId}/reviews`} onClick={handleReviewsClick}>
+            <Link to={`${location.pathname}/reviews`} onClick={handleReviewsClick}>
               Reviews
             </Link>
           </li>
@@ -71,5 +73,3 @@ function MovieDetails() {
     </>
   );
 }
-
-export default MovieDetails;
