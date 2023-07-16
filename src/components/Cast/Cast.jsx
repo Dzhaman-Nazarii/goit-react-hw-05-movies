@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchCast } from "../../components/services/Service";
 
 export default function Cast() {
@@ -20,8 +20,8 @@ export default function Cast() {
   }, [movieId]);
 
   return (
-    <Suspense fallback={<h2>Loading...</h2>}>
-      {cast.length > 0 ? (
+      <>
+        {cast.length > 0 ? (
         <ul>
           {cast.map(({ id, profile_path, name }) => (
             <li key={id}>
@@ -36,6 +36,6 @@ export default function Cast() {
       ) : (
         <p>We don`t have information about cast.</p>
       )}
-    </Suspense>
+      </>
   );
 }

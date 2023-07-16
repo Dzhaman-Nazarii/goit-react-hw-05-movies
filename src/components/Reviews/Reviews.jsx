@@ -1,5 +1,5 @@
 import { fetchReviews } from "../../components/services/Service";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 export default function Reviews() {
@@ -20,7 +20,7 @@ export default function Reviews() {
   }, [movieId]);
 
   return (
-    <Suspense fallback={<h2>Loading...</h2>}>
+    <>
       {reviews.length > 0 ? (
         <ul>
           {reviews.map(({ id, author, content }) => (
@@ -33,6 +33,6 @@ export default function Reviews() {
       ) : (
         <p>We don't have any reviews for this movie.</p>
       )}
-    </Suspense>
+    </>
   );
 }

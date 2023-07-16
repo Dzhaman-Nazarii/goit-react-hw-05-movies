@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 
 import Layout from "./Layout";
 
-import { lazy } from "react";
+import { Suspense, lazy } from "react";
 
 import Home from '../pages/Home/Home'
 import Movies from "pages/Movies/Movies";
@@ -12,6 +12,7 @@ const Reviews = lazy(() => import("./Reviews/Reviews"))
 
 function App() {
   return (
+    <Suspense fallback={<h2>Loading...</h2>}>
     <Routes>
       <Route path='/' element={<Layout />}>
         <Route index element={<Home />}/>
@@ -22,7 +23,8 @@ function App() {
         </Route>
         <Route path="*" element={<h1>Not found!</h1>}></Route>
         </Route>
-    </Routes>
+      </Routes>
+      </Suspense>
   );
 };
 
