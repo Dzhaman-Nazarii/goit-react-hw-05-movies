@@ -21,7 +21,7 @@ export default function Reviews() {
 
   return (
     <>
-      {reviews.length > 0 ? (
+      {reviews.length > 0 && (
         <ul>
           {reviews.map(({ id, author, content }) => (
             <li key={id}>
@@ -30,7 +30,8 @@ export default function Reviews() {
             </li>
           ))}
         </ul>
-      ) : (
+      )}
+      {reviews.length < 1 && (
         <p>We don't have any reviews for this movie.</p>
       )}
     </>

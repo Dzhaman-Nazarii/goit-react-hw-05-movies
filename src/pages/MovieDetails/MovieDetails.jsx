@@ -67,8 +67,6 @@ export default function MovieDetails() {
           </li>
         </ul>
       </div>
-      {showCast && <Cast />}
-      {showReviews && <Reviews />}
       <Outlet />
     </>
   );
