@@ -1,16 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import { fetchDetails } from "../../components/services/Service";
-import Reviews from "../../components/Reviews/Reviews";
-import Cast from "../../components/Cast/Cast";
 
 export default function MovieDetails() {
   const { movieId } = useParams();
   const location = useLocation();
   const backLinkLocationRef = useRef(location.state?.from ?? '/movies');
   const [movieDetails, setMovieDetails] = useState(null);
-  const [showCast, setShowCast] = useState(false);
-  const [showReviews, setShowReviews] = useState(false);
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -24,16 +20,6 @@ export default function MovieDetails() {
 
     fetchMovieDetails();
   }, [movieId]);
-
-  const handleCastClick = () => {
-    setShowCast(true);
-    setShowReviews(false);
-  };
-
-  const handleReviewsClick = () => {
-    setShowReviews(true);
-    setShowCast(false);
-  };
 
   if (!movieDetails) {
     return <div>Loading...</div>;
@@ -56,12 +42,12 @@ export default function MovieDetails() {
         <h2>Additional information</h2>
         <ul>
           <li>
-            <Link to={`${location.pathname}/cast`} onClick={handleCastClick}>
+            <Link to="cast">
               Cast
             </Link>
           </li>
           <li>
-            <Link to={`${location.pathname}/reviews`} onClick={handleReviewsClick}>
+            <Link to="reviews">
               Reviews
             </Link>
           </li>
