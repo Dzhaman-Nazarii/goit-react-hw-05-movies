@@ -39,7 +39,7 @@ export default function MovieDetails() {
         <p className={css.movie__text}>Overview: {overview}</p>
         <p>User Score: {votePercentage}%</p>
       </div>
-      <div>
+      <div  className={css.aditional__container}>
         <h2 className={css.descriptin__title}>Additional information</h2>
         <ul>
           <li>
